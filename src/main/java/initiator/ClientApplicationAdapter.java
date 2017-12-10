@@ -7,11 +7,13 @@ import quickfix.field.*;
 import quickfix.fix42.NewOrderSingle;
 
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClientApplicationAdapter implements Application {
 
     private static final Logger log = LoggerFactory.getLogger(ClientApplicationAdapter.class);
     private SessionID sessionID;
+    private AtomicInteger counter;
     @Override
     public void fromAdmin(Message message, SessionID sessionId)
             throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, RejectLogon {
@@ -33,7 +35,6 @@ public class ClientApplicationAdapter implements Application {
     public void onLogon(SessionID sessionId) {
         log.info("onLogon: SessionId={}", sessionId);
         this.sessionID=sessionId;
-        this.buyOrder();
     }
 
     @Override
@@ -50,12 +51,13 @@ public class ClientApplicationAdapter implements Application {
     public void toApp(Message message, SessionID sessionId) throws DoNotSend {
         log.info("toApp: Message={}, SessionId={}", message, sessionId);
     }
-    public void buyOrder() {
-        NewOrderSingle order = new NewOrderSingle(new ClOrdID("ATB12456S"),
-                new HandlInst(HandlInst.MANUAL_ORDER), new Symbol("ATB"),
+
+    public void buyOrder(Order orderF) {
+        NewOrderSingle order = new NewOrderSingle(new ClOrdID(orderF.getSymbol()+counter.getAndIncrement()),
+                new HandlInst(HandlInst.MANUAL_ORDER), new Symbol(orderF.getSymbol()),
                 new Side(Side.BUY), new TransactTime(new Date()), new OrdType(OrdType.MARKET));
 
-        order.set(new OrderQty(4500));
+        order.set(new OrderQty(orderF.getQuantity()));
         order.set(new Price(200.9d));
         System.out.println("Sending Order to Server");
         try {

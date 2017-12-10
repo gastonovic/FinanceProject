@@ -1,9 +1,9 @@
 package initiator;
 
-public class Order {
+import quickfix.field.*;
 
-    private int quantity;
-    private String value;
+public class Order {
+    ClOrdID clOrdID; HandlInst handlInst; Side side; TransactTime transactTime; OrdType ordType;
 
     public int getQuantity() {
         return quantity;
@@ -13,11 +13,18 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public String getValue() {
-        return value;
+    private int quantity;
+    private String symbol;
+
+    public String getSymbol() {
+        return symbol;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
+
+
+
+
 }
