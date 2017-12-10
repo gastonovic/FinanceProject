@@ -28,7 +28,7 @@ public class AppClient implements CommandLineRunner {
     }
 
     @Bean
-    public Application clientApplication() {
+    public ClientApplicationAdapter clientApplication() {
         return new ClientApplicationAdapter();
     }
 
