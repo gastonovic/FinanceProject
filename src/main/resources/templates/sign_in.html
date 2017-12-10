@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Passer un ordre</h1>
+<form action="#" th:action="@{/sign_in}" method="post">
+    <div><label for="email">Email</label>: <input type="email"  id="email"/></div>
+    <div><label for="password">Mot de passe</label>: <input type="password" id="password"/></div>
+    <div><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></div>
+</form>
+</body>
+</html>

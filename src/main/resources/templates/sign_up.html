@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Passer un ordre</h1>
+<form action="#" th:action="@{/sign_up}" th:object="${client}" method="post">
+    <div><label for="nom">Nom</label>: <input type="text" th:field="*{nom}" id="nom"/></div>
+    <div><label for="prenom">Prenom</label>: <input type="text" th:field="*{prenom}" id="prenom"/></div>
+    <div><label for="cin">CIN</label>: <input type="text" th:field="*{cin}" id="cin"/></div>
+    <div><label for="date">Date de naissance</label>: <input type="text" th:field="*{date}" id="date"/></div>
+    <div><label for="email">Email</label>: <input type="email" th:field="*{email}" id="email"/></div>
+    <div><label for="password">Mot de passe</label>: <input type="password" th:field="*{password}" id="password"/></div>
+    <div><label for="password1">Confirmer mot de passe</label>: <input type="password" th:field="*{password}" id="password1"/></div>
+    <div><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></div>
+</form>
+</body>
+</html>

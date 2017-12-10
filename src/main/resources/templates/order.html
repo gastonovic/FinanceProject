@@ -7,9 +7,40 @@
 <body>
 	<h1>Passer un ordre</h1>
     <form action="#" th:action="@{/passorder}" th:object="${order}" method="post">
-    	<p>Valeur: <input type="text" th:field="*{value}" /></p>
-        <p>Quantité: <input type="text" th:field="*{quantity}" /></p>
-        <p>hello</p>
+
+        <div><label for="valeur">Valeur</label>:<select th:field="*{value}" id="valeur" >
+                                           <option>ATB</option>
+                                           <option>AMS</option>
+                                           <option>SERVICOM</option>
+                                           <option>ASSAD</option>
+                                           </select>
+        </div>
+        <div>
+        <label for="type">Type ordre</label>:<select th:field="*{type}" id="type" >
+                                           <option>limite</option>
+                                           <option>au cours d'ouverture</option>
+                                           <option>a la meilleure limite</option>
+                                           <option>application</option>
+                                           <option>ATP</option>
+                                           </select>
+        </div>
+        <div><label for="quantity">Quantité</label>: <input type="text" th:field="*{quantity}" id="quantity"/></div>
+        <div><label for="price">prix</label> : <input type="text" th:field="*{price}" id="price"/></div>
+        <div>
+        <label>Side: </label>
+        <ul>
+            <li>
+                <input type="radio" th:field="*{side}" name="side" th:value="achat" />
+                <label>achat</label>
+            </li>
+            <li>
+                <input type="radio" th:field="*{side}" name="side" th:value="vente" />
+                <label>vente</label>
+            </li>
+        </ul>
+        </div>
+
+
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>
