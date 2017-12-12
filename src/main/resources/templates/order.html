@@ -8,20 +8,21 @@
 	<h1>Passer un ordre</h1>
     <form action="#" th:action="@{/passorder}" th:object="${order}" method="post">
 
-        <div><label for="valeur">Valeur</label>:<select th:field="*{value}" id="valeur" >
-                                           <option>ATB</option>
-                                           <option>AMS</option>
-                                           <option>SERVICOM</option>
-                                           <option>ASSAD</option>
+        <div><label for="valeur">Valeur</label>:<select th:field="*{symbol}" id="valeur" >
+                                           <option value="ATB">ATB</option>
+                                           <option value="AMS">AMS</option>
+                                           <option value="SERVICOM">SERVICOM</option>
+                                           <option value="ASSAD">ASSAD</option>
+                                           <option value="STAR">STAR</option>
                                            </select>
         </div>
         <div>
         <label for="type">Type ordre</label>:<select th:field="*{type}" id="type" >
-                                           <option>limite</option>
-                                           <option>au cours d'ouverture</option>
-                                           <option>a la meilleure limite</option>
+                                           <option value="2">limite</option>
+                                           <option value="1">au cours d'ouverture</option>
+                                           <!--<option>a la meilleure limite</option>
                                            <option>application</option>
-                                           <option>ATP</option>
+                                           <option>ATP</option>-->
                                            </select>
         </div>
         <div><label for="quantity">Quantité</label>: <input type="text" th:field="*{quantity}" id="quantity"/></div>
@@ -30,11 +31,11 @@
         <label>Side: </label>
         <ul>
             <li>
-                <input type="radio" th:field="*{side}" name="side" th:value="achat" />
+                <input type="radio" th:field="*{side}" name="side" th:value="1" />
                 <label>achat</label>
             </li>
             <li>
-                <input type="radio" th:field="*{side}" name="side" th:value="vente" />
+                <input type="radio" th:field="*{side}" name="side" th:value="2" />
                 <label>vente</label>
             </li>
         </ul>

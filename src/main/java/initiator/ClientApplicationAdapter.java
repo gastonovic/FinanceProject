@@ -2,15 +2,17 @@ package initiator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 import quickfix.*;
 import quickfix.field.*;
 import quickfix.fix42.NewOrderSingle;
+import user.User;
 
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClientApplicationAdapter implements Application {
-
+    User user  = new User("Omar","Mahjoubi");
     private static final Logger log = LoggerFactory.getLogger(ClientApplicationAdapter.class);
     private SessionID sessionID;
     private AtomicInteger counter;
@@ -52,13 +54,13 @@ public class ClientApplicationAdapter implements Application {
         log.info("toApp: Message={}, SessionId={}", message, sessionId);
     }
 
-    public void buyOrder(Order orderF) {
-        NewOrderSingle order = new NewOrderSingle(new ClOrdID(orderF.getSymbol()+counter.getAndIncrement()),
+    public void send(OrderF orderF) {
+        NewOrderSingle order = new NewOrderSingle(new ClOrdID(orderF.getID()),
                 new HandlInst(HandlInst.MANUAL_ORDER), new Symbol(orderF.getSymbol()),
-                new Side(Side.BUY), new TransactTime(new Date()), new OrdType(OrdType.MARKET));
+                new Side(orderF.getSide()), new TransactTime(new Date()), new OrdType(orderF.getType()));
 
         order.set(new OrderQty(orderF.getQuantity()));
-        order.set(new Price(200.9d));
+        order.set(new Price(orderF.getPrice()));
         System.out.println("Sending Order to Server");
         try {
             Session.sendToTarget(order, this.sessionID);
@@ -71,8 +73,16 @@ public class ClientApplicationAdapter implements Application {
             e1.printStackTrace();
         }
 
-
-
-
     }
+    @Bean
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+
 }

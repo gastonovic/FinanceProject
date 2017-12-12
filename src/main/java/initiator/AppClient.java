@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import quickfix.*;
+import user.User;
 
 @EnableQuickFixJClient
 @SpringBootApplication
@@ -29,6 +30,9 @@ public class AppClient implements CommandLineRunner {
 
     @Bean
     public ClientApplicationAdapter clientApplication() {
+        /*OrderTableModel orderTableModel = new OrderTableModel();
+        ExecutionTableModel executionTableModel = new ExecutionTableModel();
+        return new ClientApplicationAdapter(orderTableModel, executionTableModel);*/
         return new ClientApplicationAdapter();
     }
 
